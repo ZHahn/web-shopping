@@ -1,0 +1,6 @@
+﻿userId,productId,result
+-1,21,null
+5,88,null
+5,33,null
+-1,-1,null
+5,34,"{""counts"":1,""productId"":34,""productPrice"":506,""userId"":5}"

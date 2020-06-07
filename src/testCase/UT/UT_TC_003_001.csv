@@ -1,0 +1,8 @@
+﻿id,result
+-9999,FALSE
+-1,FALSE
+0,FALSE
+1,FALSE
+1000,FALSE
+2,{id=2，name=“admin”，email=“123456@qq.com”，nickName=“xue”，role=1}
+8,{id=8，name=“Yuan”，email=“435452@qq.com”，nickName=“Yuan”，role=0}

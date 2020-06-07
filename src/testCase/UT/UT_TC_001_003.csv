@@ -1,0 +1,10 @@
+﻿id,name,description,type,keyword,price,counts,result
+2,null,null,3,null ,-33,-414,FALSE
+8,null,1,1,1,1,1,FALSE
+11,1,null,1,1,1,1,FALSE
+-9,1,1,4,1,1,1,FALSE
+55,1,1,1,null ,1,1,FALSE
+-54,1,1,1,1,-999,1,FALSE
+28,1,1,1,1,1,-9999,FALSE
+31,1,1,1,1,1,1,TRUE
+2,这是一件衣服,1,1,1,99,45,FALSE
