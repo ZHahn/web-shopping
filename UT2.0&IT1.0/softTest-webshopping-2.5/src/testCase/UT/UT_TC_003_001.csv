@@ -1,0 +1,8 @@
+﻿id,result
+-9999,null
+-1,null
+0,null
+1,null
+1000,null
+2,"{""email"":""222222@qq.com"",""id"":2,""name"":""test2"",""nickName"":""test2"",""role"":1}"
+5,"{""email"":""555555@qq.com"",""id"":5,""name"":""test5"",""nickName"":""test5"",""role"":0}"

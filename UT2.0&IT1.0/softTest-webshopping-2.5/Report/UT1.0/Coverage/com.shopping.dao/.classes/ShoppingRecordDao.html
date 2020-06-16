@@ -1,0 +1,74 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ShoppingRecordDao</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.shopping.dao</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ShoppingRecordDao (com.shopping.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ShoppingRecordDao</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.shopping.dao;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.shopping.entity.ShoppingRecord;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.List;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;public interface ShoppingRecordDao {
+<i>8</i>&nbsp;    ShoppingRecord getShoppingRecord(int userId, int productId, String time);
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;    void addShoppingRecord(ShoppingRecord shoppingRecord);
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    boolean deleteShoppingRecord(int userId, int productId);
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    boolean updateShoppingRecord(ShoppingRecord shoppingRecord);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    List&lt;ShoppingRecord&gt; getShoppingRecords(int userId);
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    List&lt;ShoppingRecord&gt; getAllShoppingRecords();
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    List&lt;ShoppingRecord&gt; getShoppingRecordsByOrderStatus(int orderStatus);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    boolean getUserProductRecord(int userId, int productId);
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    boolean deleteShoppingRecordByUser(int userId);
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    boolean deleteShoppingRecordByProductId(int productId);
+<i>27</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-06-30 21:08</div>
+</div>
+</body>
+</html>

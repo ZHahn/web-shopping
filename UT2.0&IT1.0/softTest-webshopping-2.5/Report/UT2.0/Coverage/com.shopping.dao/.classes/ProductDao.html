@@ -1,0 +1,70 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ProductDao</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.shopping.dao</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ProductDao (com.shopping.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ProductDao</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.shopping.dao;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.shopping.entity.Product;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.List;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;public interface ProductDao {
+<i>8</i>&nbsp;    public Product getProduct(int id);
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;    public Product getProduct(String name);
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    public void addProduct(Product product);
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    public boolean deleteProduct(int id);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    public boolean updateProduct(Product product);
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    public List&lt;Product&gt; getProductsByKeyWord(String searchKeyWord);
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    public List&lt;Product&gt; getProductsByType(int type);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    public List&lt;Product&gt; getAllProduct();
+<i>23</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-07-01 01:30</div>
+</div>
+</body>
+</html>

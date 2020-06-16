@@ -1,0 +1,10 @@
+﻿name,description,type,keyword,price,counts,result
+,,-666,,-8888,-999,FALSE
+,1,1,1,1,1,FALSE
+1,,1,1,1,1,FALSE
+1,1,-777,1,1,1,FALSE
+1,1,1,,1,1,FALSE
+1,1,1,1,-9,1,FALSE
+1,1,1,1,1,-888,FALSE
+1,1,1,1,1,1,TRUE
+-33333,1,1,1,1,1,FALSE

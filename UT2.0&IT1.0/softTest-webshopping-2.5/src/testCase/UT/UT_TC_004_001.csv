@@ -1,0 +1,8 @@
+﻿id,result
+-999,null
+-1,null
+0,null
+1,null
+1000,null
+2,"{""address"":""同济大学"",""birthday"":""1999-01-11"",""id"":2,""password"":""123456"",""phoneNumber"":""18621807254"",""postNumber"":""224500"",""registerTime"":""2020-04-27 13:30:18"",""sex"":0}"
+5,"{""address"":""曹安公路4800号"",""birthday"":""1999-01-11"",""id"":5,""password"":""123456"",""phoneNumber"":""18621807254"",""postNumber"":""224500"",""registerTime"":""2020-04-27 13:32:14"",""sex"":1}"

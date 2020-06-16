@@ -1,0 +1,10 @@
+﻿userNameOrEmail,password,result
+,123456,FALSE
+Yuan,,FALSE
+admin,123456,TRUE
+Yuan,111111,FALSE
+Yuan,,FALSE
+Yuan,123456,TRUE
+,,FALSE
+,123456,FALSE
+Y,111111,FALSE

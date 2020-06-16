@@ -1,0 +1,9 @@
+﻿name,email,nickName,Id,result
+,,,-414,FALSE
+,555555@qq.com,,5,FALSE
+,,test5,-999,FALSE
+test5,,test5,5,FALSE
+test5,555555@qq.com,test5,111111,FALSE
+test5,555555@qq.com,,9,FALSE
+,,test5,5,FALSE
+test5,555555@qq.com,,1555,FALSE

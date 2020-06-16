@@ -1,0 +1,8 @@
+﻿userId,result
+7,[]
+-1,[]
+0,[]
+1,[]
+16898,[]
+2,"[{""counts"":5,""orderStatus"":2,""productId"":3,""productPrice"":445,""time"":""2019-06-29 21-12-43"",""userId"":2},{""counts"":1,""orderStatus"":0,""productId"":3,""productPrice"":89,""time"":""2019-06-29 21-13-32"",""userId"":2},{""counts"":1,""orderStatus"":0,""productId"":7,""productPrice"":6999,""time"":""2019-06-29 21-19-01"",""userId"":2}]"
+5,"[{""counts"":1,""orderStatus"":2,""productId"":3,""productPrice"":89,""time"":""2019-05-21 00-12-10"",""userId"":5},{""counts"":1,""orderStatus"":0,""productId"":9,""productPrice"":4000,""time"":""2019-05-21 00-12-10"",""userId"":5},{""counts"":1,""orderStatus"":0,""productId"":17,""productPrice"":122,""time"":""2019-05-21 00-12-10"",""userId"":5}]"

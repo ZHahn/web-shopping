@@ -1,0 +1,162 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ShoppingCarDaoImplement</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.shopping.dao</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ShoppingCarDaoImplement (com.shopping.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ShoppingCarDaoImplement</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62.5%
+  </span>
+  <span class="absValue">
+    (5/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    70.6%
+  </span>
+  <span class="absValue">
+    (24/ 34)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.shopping.dao;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.shopping.entity.ShoppingCar;
+<i>4</i>&nbsp;import org.hibernate.Query;
+<i>5</i>&nbsp;import org.hibernate.SessionFactory;
+<i>6</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import javax.annotation.Resource;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;@Repository
+<b class="fc"><i>13</i>&nbsp;public class ShoppingCarDaoImplement implements ShoppingCarDao {</b>
+<i>14</i>&nbsp;    @Resource
+<i>15</i>&nbsp;    private SessionFactory sessionFactory;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    @Override
+<i>18</i>&nbsp;    public ShoppingCar getShoppingCar(int userId, int productId) {
+<b class="fc"><i>19</i>&nbsp;        String hql = &quot;from ShoppingCar where userId=? and productId=?&quot;;</b>
+<b class="fc"><i>20</i>&nbsp;        Query query = sessionFactory.getCurrentSession().createQuery(hql);</b>
+<b class="fc"><i>21</i>&nbsp;        query.setParameter(0, userId);</b>
+<b class="fc"><i>22</i>&nbsp;        query.setParameter(1, productId);</b>
+<b class="fc"><i>23</i>&nbsp;        return (ShoppingCar) query.uniqueResult();</b>
+<i>24</i>&nbsp;    }
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Override
+<i>27</i>&nbsp;    public void addShoppingCar(ShoppingCar shoppingCar) {
+<b class="nc"><i>28</i>&nbsp;        sessionFactory.getCurrentSession().save(shoppingCar);</b>
+<b class="nc"><i>29</i>&nbsp;    }</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    @Override
+<i>32</i>&nbsp;    public boolean deleteShoppingCar(int userId, int productId) {
+<b class="fc"><i>33</i>&nbsp;        String hql = &quot;delete ShoppingCar where userId=? and productId=?&quot;;</b>
+<b class="fc"><i>34</i>&nbsp;        Query query = sessionFactory.getCurrentSession().createQuery(hql);</b>
+<b class="fc"><i>35</i>&nbsp;        query.setParameter(0, userId);</b>
+<b class="fc"><i>36</i>&nbsp;        query.setParameter(1, productId);</b>
+<b class="fc"><i>37</i>&nbsp;        return query.executeUpdate() &gt; 0;</b>
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    @Override
+<i>41</i>&nbsp;    public boolean updateShoppingCar(ShoppingCar shoppingCar) {
+<b class="fc"><i>42</i>&nbsp;        if(shoppingCar.getProductPrice() &lt;=0||shoppingCar.getCounts() &lt;0){</b>
+<b class="fc"><i>43</i>&nbsp;            return false;</b>
+<i>44</i>&nbsp;        }
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;        String hql = &quot;update ShoppingCar set productPrice=?,counts=? where userId=? and productId=?&quot;;</b>
+<i>47</i>&nbsp;
+<b class="fc"><i>48</i>&nbsp;        Query query = sessionFactory.getCurrentSession().createQuery(hql);</b>
+<b class="fc"><i>49</i>&nbsp;        query.setParameter(0, shoppingCar.getProductPrice());</b>
+<b class="fc"><i>50</i>&nbsp;        query.setParameter(1, shoppingCar.getCounts());</b>
+<b class="fc"><i>51</i>&nbsp;        query.setParameter(2, shoppingCar.getUserId());</b>
+<b class="fc"><i>52</i>&nbsp;        query.setParameter(3, shoppingCar.getProductId());</b>
+<b class="fc"><i>53</i>&nbsp;        return query.executeUpdate() &gt; 0;</b>
+<i>54</i>&nbsp;    }
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    @Override
+<i>57</i>&nbsp;    public List&lt;ShoppingCar&gt; getShoppingCars(int userId) {
+<b class="nc"><i>58</i>&nbsp;        String hql = &quot;from ShoppingCar where userId=?&quot;;</b>
+<b class="nc"><i>59</i>&nbsp;        Query query = sessionFactory.getCurrentSession().createQuery(hql);</b>
+<b class="nc"><i>60</i>&nbsp;        query.setParameter(0, userId);</b>
+<b class="nc"><i>61</i>&nbsp;        return query.list();</b>
+<i>62</i>&nbsp;    }
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    @Override
+<i>65</i>&nbsp;    public boolean deleteShoppingCarByUser(int userId) {
+<b class="fc"><i>66</i>&nbsp;        String hql = &quot;delete ShoppingCar where userId=?&quot;;</b>
+<b class="fc"><i>67</i>&nbsp;        Query query = sessionFactory.getCurrentSession().createQuery(hql);</b>
+<b class="fc"><i>68</i>&nbsp;        query.setParameter(0, userId);</b>
+<b class="fc"><i>69</i>&nbsp;        return query.executeUpdate() &gt; 0;</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    @Override
+<i>73</i>&nbsp;    public boolean deleteShoppingCarByProduct(int productId) {
+<b class="nc"><i>74</i>&nbsp;        String hql = &quot;delete ShoppingCar where productId=?&quot;;</b>
+<b class="nc"><i>75</i>&nbsp;        Query query = sessionFactory.getCurrentSession().createQuery(hql);</b>
+<b class="nc"><i>76</i>&nbsp;        query.setParameter(0, productId);</b>
+<b class="nc"><i>77</i>&nbsp;        return query.executeUpdate() &gt; 0;</b>
+<i>78</i>&nbsp;    }
+<i>79</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-07-01 01:30</div>
+</div>
+</body>
+</html>
