@@ -1,0 +1,6 @@
+﻿userId,productId,result
+-1,21,"{""counts"":0,""productId"":0,""productPrice"":0,""userId"":0}"
+5,88,"{""counts"":0,""productId"":0,""productPrice"":0,""userId"":0}"
+5,33,"{""counts"":0,""productId"":0,""productPrice"":0,""userId"":0}"
+-1,-1,"{""counts"":0,""productId"":0,""productPrice"":0,""userId"":0}"
+5,34,"{""counts"":1,""productId"":34,""productPrice"":506,""userId"":5}"

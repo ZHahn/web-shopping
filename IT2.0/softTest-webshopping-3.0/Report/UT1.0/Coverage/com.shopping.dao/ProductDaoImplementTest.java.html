@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductDaoImplementTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shopping$com_shopping_dao_in_shopping.exec</a> &gt; <a href="index.source.html" class="el_package">com.shopping.dao</a> &gt; <span class="el_source">ProductDaoImplementTest.java</span></div><h1>ProductDaoImplementTest.java</h1><pre class="source lang-java linenums">package com.shopping.dao;
+
+import com.alibaba.fastjson.JSONArray;
+import com.csvreader.CsvReader;
+import com.shopping.entity.Product;
+import com.shopping.entity.ShoppingCar;
+import org.junit.Test;
+import org.junit.Before; 
+import org.junit.After;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+
+/** 
+* ProductDaoImplement Tester. 
+* UT_TC_001
+*/
+
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">@RunWith(SpringJUnit4ClassRunner.class)</span>
+//配置事务的回滚,对数据库的增删改都会回滚,便于测试用例的循环利用
+@TransactionConfiguration(transactionManager = &quot;transactionManager&quot;, defaultRollback = true)
+@Transactional
+//测试的时候加载服务器
+@WebAppConfiguration
+@ContextConfiguration(locations = {&quot;classpath:spring/applicationContext.xml&quot;})
+<span class="fc" id="L37">public class ProductDaoImplementTest { </span>
+    @Autowired
+    ProductDaoImplement productDaoImplement;
+@Before
+public void before() throws Exception {
+<span class="fc" id="L42">    System.out.print(&quot;Class ProductDaoImplement;\n&quot;);</span>
+<span class="fc" id="L43">} </span>
+
+@After
+public void after() throws Exception { 
+<span class="fc" id="L47">} </span>
+
+/** 
+* 
+* Method: getProduct(int id) 
+* 
+*/ 
+@Test
+public void testGetProductId() throws Exception { 
+//TODO: Test goes here...
+<span class="fc" id="L57">    String testCase = &quot;UT_TC_001_002&quot;;</span>
+<span class="fc" id="L58">    CsvReader csvReader = new CsvReader(&quot;src/testCase/UT/UT_TC_001_002.csv&quot;, ',', Charset.forName(&quot;utf8&quot;));</span>
+<span class="fc" id="L59">    csvReader.readHeaders();</span>
+<span class="fc" id="L60">    System.out.println(&quot;Test-function--getProduct&quot;);</span>
+    //用来存储是否通过测试的Boolean
+<span class="fc" id="L62">    List&lt;Boolean&gt; passedList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L63">    int i=0;</span>
+    //测试用例表格的每行元素(除去header后)
+<span class="fc bfc" id="L65" title="All 2 branches covered.">    while (csvReader.readRecord()) {</span>
+        //每列元素的
+<span class="fc" id="L67">        int productId = Integer.parseInt(csvReader.get(0));</span>
+<span class="fc" id="L68">        String expect = csvReader.get(1);</span>
+
+<span class="fc" id="L70">        java.util.logging.Logger.getLogger(&quot;org.hibernate&quot;).setLevel(Level.OFF);//关闭烦人的hibernate日志输出</span>
+//        String output = new GsonBuilder().disableHtmlEscaping().create().toJson(articleService.searchArticles(query));
+//        List&lt;ShoppingRecord&gt; output = shoppingRecordDaoImplement.getShoppingRecordsByOrderStatus(orderState);
+//        output = JSON.toJSONString(output);
+<span class="fc" id="L74">        String output = JSONArray.toJSONString(productDaoImplement.getProduct(productId));</span>
+
+<span class="fc" id="L76">        boolean ispassed = output.equals(expect);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (ispassed) {</span>
+<span class="fc" id="L78">            System.out.print(testCase+&quot;-&quot;+(++i)+&quot; passed\n&quot; );</span>
+        } else {
+<span class="nc" id="L80">            System.out.print(testCase+&quot;-&quot;+(++i)+&quot; failed\n&quot; );</span>
+        }
+<span class="fc" id="L82">        System.out.println(&quot;output:&quot; + output);</span>
+<span class="fc" id="L83">        System.out.println(&quot;expect:&quot; + expect);</span>
+        //将测试结果放在列表里
+<span class="fc" id="L85">        passedList.add(ispassed);</span>
+<span class="fc" id="L86">        System.out.println(&quot;\n&quot;);</span>
+<span class="fc" id="L87">    }</span>
+    //断言是为了调用junit工具来记录是否通过测试
+<span class="fc bfc" id="L89" title="All 2 branches covered.">    for (boolean p : passedList) {</span>
+<span class="pc bpc" id="L90" title="2 of 4 branches missed.">        assert p;</span>
+<span class="fc" id="L91">    }</span>
+<span class="fc" id="L92">} </span>
+
+///**
+//*
+//* Method: getProduct(String name)
+//*
+//*/
+//@Test
+//public void testGetProductName() throws Exception {
+////TODO: Test goes here...
+//}
+
+///**
+//*
+//* Method: addProduct(Product product)
+//*
+//*/
+//@Test
+//public void testAddProduct() throws Exception {
+////TODO: Test goes here...
+//
+//}
+
+/** 
+* 
+* Method: deleteProduct(int id) 
+* 
+*/ 
+@Test
+public void testDeleteProduct() throws Exception { 
+//TODO: Test goes here...
+<span class="fc" id="L123">    String testCase = &quot;UT_TC_001_001&quot;;</span>
+<span class="fc" id="L124">    CsvReader csvReader = new CsvReader(&quot;src/testCase/UT/UT_TC_001_001.csv&quot;, ',', Charset.forName(&quot;utf8&quot;));</span>
+<span class="fc" id="L125">    csvReader.readHeaders();</span>
+<span class="fc" id="L126">    System.out.println(&quot;Test-function--deleteProduct&quot;);</span>
+    //用来存储是否通过测试的Boolean
+<span class="fc" id="L128">    List&lt;Boolean&gt; passedList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L129">    int i=0;</span>
+    //测试用例表格的每行元素(除去header后)
+<span class="fc bfc" id="L131" title="All 2 branches covered.">    while (csvReader.readRecord()) {</span>
+        //每列元素的
+<span class="fc" id="L133">        String productId = csvReader.get(0);</span>
+<span class="fc" id="L134">        String expect = csvReader.get(1).toLowerCase();</span>
+<span class="fc" id="L135">        java.util.logging.Logger.getLogger(&quot;org.hibernate&quot;).setLevel(Level.OFF);//关闭烦人的hibernate日志输出</span>
+//        String output = new GsonBuilder().disableHtmlEscaping().create().toJson(articleService.searchArticles(query));
+        try {
+<span class="fc" id="L138">            Boolean output = productDaoImplement.deleteProduct(Integer.parseInt(productId));</span>
+<span class="fc" id="L139">        } catch (org.hibernate.exception.ConstraintViolationException e) {</span>
+<span class="fc" id="L140">            System.out.print(testCase + &quot;-&quot; + (++i) + &quot; failed\n&quot;);</span>
+<span class="fc" id="L141">            System.out.println(&quot;org.hibernate.exception.ConstraintViolationException happend \n&quot; );</span>
+<span class="fc" id="L142">            passedList.add(false);</span>
+<span class="fc" id="L143">            continue;</span>
+<span class="fc" id="L144">        }</span>
+<span class="fc" id="L145">        Boolean output = productDaoImplement.deleteProduct(Integer.parseInt(productId));</span>
+<span class="fc" id="L146">        boolean ispassed = output.toString().equals(expect);</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        if (ispassed) {</span>
+<span class="fc" id="L148">            System.out.print(testCase+&quot;-&quot;+(++i)+&quot; passed\n&quot; );</span>
+        } else {
+<span class="fc" id="L150">            System.out.print(testCase+&quot;-&quot;+(++i)+&quot; failed\n&quot; );</span>
+        }
+<span class="fc" id="L152">        System.out.println(&quot;output:&quot; + output);</span>
+<span class="fc" id="L153">        System.out.println(&quot;expect:&quot; + expect);</span>
+        //将测试结果放在列表里
+<span class="fc" id="L155">        passedList.add(ispassed);</span>
+<span class="fc" id="L156">        System.out.println(&quot;\n&quot;);</span>
+<span class="fc" id="L157">    }</span>
+    //断言是为了调用junit工具来记录是否通过测试
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">    for (boolean p : passedList) {</span>
+<span class="pc bpc" id="L160" title="1 of 4 branches missed.">        assert p;</span>
+<span class="fc" id="L161">    }</span>
+
+<span class="nc" id="L163">} </span>
+
+/** 
+* 
+* Method: updateProduct(Product product) 
+* 
+*/ 
+@Test
+public void testUpdateProduct() throws Exception {
+//TODO: Test goes here...
+<span class="fc" id="L173">    String testCase = &quot;UT_TC_001_003&quot;;</span>
+<span class="fc" id="L174">    CsvReader csvReader = new CsvReader(&quot;src/testCase/UT/UT_TC_001_003.csv&quot;, ',', Charset.forName(&quot;utf8&quot;));</span>
+<span class="fc" id="L175">    csvReader.readHeaders();</span>
+<span class="fc" id="L176">    System.out.println(&quot;Test-function--updateProduct&quot;);</span>
+    //用来存储是否通过测试的Boolean
+<span class="fc" id="L178">    List&lt;Boolean&gt; passedList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L179">    int i = 0;</span>
+    //测试用例表格的每行元素(除去header后)
+<span class="fc bfc" id="L181" title="All 2 branches covered.">    while (csvReader.readRecord()) {</span>
+        //每列元素的
+<span class="fc" id="L183">        int productId = Integer.parseInt(csvReader.get(0));</span>
+<span class="fc" id="L184">        String name = csvReader.get(1);</span>
+<span class="fc" id="L185">        String description = csvReader.get(2);</span>
+<span class="fc" id="L186">        int type = Integer.parseInt(csvReader.get(3));</span>
+<span class="fc" id="L187">        String keyword = csvReader.get(4);</span>
+<span class="fc" id="L188">        int price = Integer.parseInt(csvReader.get(5));</span>
+<span class="fc" id="L189">        int counts = Integer.parseInt(csvReader.get(6));</span>
+
+<span class="fc" id="L191">        String expect = csvReader.get(7).toLowerCase();</span>
+
+<span class="fc" id="L193">        java.util.logging.Logger.getLogger(&quot;org.hibernate&quot;).setLevel(Level.OFF);//关闭烦人的hibernate日志输出</span>
+//        String output = new GsonBuilder().disableHtmlEscaping().create().toJson(articleService.searchArticles(query));
+        //开始调用函数
+<span class="fc" id="L196">        Product product = new Product();</span>
+<span class="fc" id="L197">        product.setCounts(counts);</span>
+<span class="fc" id="L198">        product.setDescription(description);</span>
+<span class="fc" id="L199">        product.setKeyWord(keyword);</span>
+<span class="fc" id="L200">        product.setName(name);</span>
+<span class="fc" id="L201">        product.setPrice(price);</span>
+<span class="fc" id="L202">        product.setId(productId);</span>
+<span class="fc" id="L203">        product.setType(type);</span>
+        try {
+<span class="fc" id="L205">            Boolean output = productDaoImplement.updateProduct(product);</span>
+<span class="fc" id="L206">        } catch (org.hibernate.exception.ConstraintViolationException e) {</span>
+<span class="fc" id="L207">            System.out.print(testCase + &quot;-&quot; + (++i) + &quot; failed\n&quot;);</span>
+<span class="fc" id="L208">            System.out.println(&quot;org.hibernate.exception.ConstraintViolationException happend \n&quot; );</span>
+<span class="fc" id="L209">            passedList.add(false);</span>
+<span class="fc" id="L210">            continue;</span>
+<span class="fc" id="L211">        }</span>
+
+<span class="fc" id="L213">        Boolean output = productDaoImplement.updateProduct(product);</span>
+        //为true表示通过
+<span class="fc" id="L215">        boolean ispassed = output.toString().equals(expect);</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">        if (ispassed) {</span>
+<span class="fc" id="L217">            System.out.print(testCase + &quot;-&quot; + (++i) + &quot; passed\n&quot;);</span>
+        } else {
+<span class="fc" id="L219">            System.out.print(testCase + &quot;-&quot; + (++i) + &quot; failed\n&quot;);</span>
+        }
+<span class="fc" id="L221">        System.out.println(&quot;output:&quot; + output);</span>
+<span class="fc" id="L222">        System.out.println(&quot;expect:&quot; + expect);</span>
+
+        //将测试结果放在列表里
+<span class="fc" id="L225">        passedList.add(ispassed);</span>
+<span class="fc" id="L226">        System.out.println(&quot;\n&quot;);</span>
+<span class="fc" id="L227">    }</span>
+    //断言是为了调用junit工具来记录是否通过测试
+<span class="pc bpc" id="L229" title="1 of 2 branches missed.">    for (boolean p : passedList) {</span>
+<span class="pc bpc" id="L230" title="2 of 4 branches missed.">        assert p;</span>
+<span class="nc" id="L231">    }</span>
+<span class="nc" id="L232">}</span>
+
+/** 
+* 
+* Method: getProductsByKeyWord(String searchKeyWord) 
+* 
+*/ 
+@Test
+public void testGetProductsByKeyWord() throws Exception { 
+//TODO: Test goes here...
+<span class="fc" id="L242">    String testCase = &quot;UT_TC_001_004&quot;;</span>
+<span class="fc" id="L243">    CsvReader csvReader = new CsvReader(&quot;src/testCase/UT/UT_TC_001_004.csv&quot;, ',', Charset.forName(&quot;utf8&quot;));</span>
+<span class="fc" id="L244">    csvReader.readHeaders();</span>
+<span class="fc" id="L245">    System.out.println(&quot;Test-function--getProductsByKeyWord&quot;);</span>
+    //用来存储是否通过测试的Boolean
+<span class="fc" id="L247">    List&lt;Boolean&gt; passedList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L248">    int i=0;</span>
+    //测试用例表格的每行元素(除去header后)
+<span class="fc bfc" id="L250" title="All 2 branches covered.">    while (csvReader.readRecord()) {</span>
+        //每列元素的
+<span class="fc" id="L252">        String keyword = csvReader.get(0);</span>
+<span class="fc" id="L253">        String expect = csvReader.get(1);</span>
+
+<span class="fc" id="L255">        java.util.logging.Logger.getLogger(&quot;org.hibernate&quot;).setLevel(Level.OFF);//关闭烦人的hibernate日志输出</span>
+//        String output = new GsonBuilder().disableHtmlEscaping().create().toJson(articleService.searchArticles(query));
+//        List&lt;ShoppingRecord&gt; output = shoppingRecordDaoImplement.getShoppingRecordsByOrderStatus(orderState);
+//        output = JSON.toJSONString(output);
+<span class="fc" id="L259">        String output = JSONArray.toJSONString(productDaoImplement.getProductsByKeyWord(keyword));</span>
+
+<span class="fc" id="L261">        boolean ispassed = output.equals(expect);</span>
+<span class="fc bfc" id="L262" title="All 2 branches covered.">        if (ispassed) {</span>
+<span class="fc" id="L263">            System.out.print(testCase+&quot;-&quot;+(++i)+&quot; passed\n&quot; );</span>
+        } else {
+<span class="fc" id="L265">            System.out.print(testCase+&quot;-&quot;+(++i)+&quot; failed\n&quot; );</span>
+        }
+<span class="fc" id="L267">        System.out.println(&quot;output:&quot; + output);</span>
+<span class="fc" id="L268">        System.out.println(&quot;expect:&quot; + expect);</span>
+        //将测试结果放在列表里
+<span class="fc" id="L270">        passedList.add(ispassed);</span>
+<span class="fc" id="L271">        System.out.println(&quot;\n&quot;);</span>
+<span class="fc" id="L272">    }</span>
+    //断言是为了调用junit工具来记录是否通过测试
+<span class="pc bpc" id="L274" title="1 of 2 branches missed.">    for (boolean p : passedList) {</span>
+<span class="pc bpc" id="L275" title="2 of 4 branches missed.">        assert p;</span>
+<span class="nc" id="L276">    }</span>
+<span class="nc" id="L277">} </span>
+
+///**
+//*
+//* Method: getProductsByType(int type)
+//*
+//*/
+//@Test
+//public void testGetProductsByType() throws Exception {
+////TODO: Test goes here...
+//}
+//
+///**
+//*
+//* Method: getAllProduct()
+//*
+//*/
+//@Test
+//public void testGetAllProduct() throws Exception {
+////TODO: Test goes here...
+//}
+
+
+} 
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

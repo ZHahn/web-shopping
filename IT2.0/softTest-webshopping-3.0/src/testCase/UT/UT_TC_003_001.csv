@@ -1,0 +1,8 @@
+﻿id,result
+-9999,"{""id"":0,""role"":0}"
+-1,"{""id"":0,""role"":0}"
+0,"{""id"":0,""role"":0}"
+1,"{""email"":""274175179@qq.com"",""id"":1,""name"":""test1"",""nickName"":""刘子玮"",""role"":0}"
+1000,"{""id"":0,""role"":0}"
+2,"{""email"":""222222@qq.com"",""id"":2,""name"":""test2"",""nickName"":""test2"",""role"":1}"
+5,"{""email"":""555555@qq.com"",""id"":5,""name"":""test5"",""nickName"":""test5"",""role"":0}"

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShoppingCarDaoImplement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shopping$com_shopping_dao_in_shopping.exec</a> &gt; <a href="index.source.html" class="el_package">com.shopping.dao</a> &gt; <span class="el_source">ShoppingCarDaoImplement.java</span></div><h1>ShoppingCarDaoImplement.java</h1><pre class="source lang-java linenums">package com.shopping.dao;
+
+import com.shopping.entity.ShoppingCar;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+
+@Repository
+<span class="fc" id="L13">public class ShoppingCarDaoImplement implements ShoppingCarDao {</span>
+    @Resource
+    private SessionFactory sessionFactory;
+
+    @Override
+    public ShoppingCar getShoppingCar(int userId, int productId) {
+<span class="fc" id="L19">        String hql = &quot;from ShoppingCar where userId=? and productId=?&quot;;</span>
+<span class="fc" id="L20">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L21">        query.setParameter(0, userId);</span>
+<span class="fc" id="L22">        query.setParameter(1, productId);</span>
+<span class="fc" id="L23">        return (ShoppingCar) query.uniqueResult();</span>
+    }
+
+    @Override
+    public void addShoppingCar(ShoppingCar shoppingCar) {
+<span class="nc" id="L28">        sessionFactory.getCurrentSession().save(shoppingCar);</span>
+<span class="nc" id="L29">    }</span>
+
+    @Override
+    public boolean deleteShoppingCar(int userId, int productId) {
+<span class="fc" id="L33">        String hql = &quot;delete ShoppingCar where userId=? and productId=?&quot;;</span>
+<span class="fc" id="L34">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L35">        query.setParameter(0, userId);</span>
+<span class="fc" id="L36">        query.setParameter(1, productId);</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public boolean updateShoppingCar(ShoppingCar shoppingCar) {
+<span class="fc" id="L42">        String hql = &quot;update ShoppingCar set productPrice=?,counts=? where userId=? and productId=?&quot;;</span>
+<span class="fc" id="L43">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L44">        query.setParameter(0, shoppingCar.getProductPrice());</span>
+<span class="fc" id="L45">        query.setParameter(1, shoppingCar.getCounts());</span>
+<span class="fc" id="L46">        query.setParameter(2, shoppingCar.getUserId());</span>
+<span class="fc" id="L47">        query.setParameter(3, shoppingCar.getProductId());</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public List&lt;ShoppingCar&gt; getShoppingCars(int userId) {
+<span class="nc" id="L53">        String hql = &quot;from ShoppingCar where userId=?&quot;;</span>
+<span class="nc" id="L54">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L55">        query.setParameter(0, userId);</span>
+<span class="nc" id="L56">        return query.list();</span>
+    }
+
+    @Override
+    public boolean deleteShoppingCarByUser(int userId) {
+<span class="fc" id="L61">        String hql = &quot;delete ShoppingCar where userId=?&quot;;</span>
+<span class="fc" id="L62">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L63">        query.setParameter(0, userId);</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public boolean deleteShoppingCarByProduct(int productId) {
+<span class="nc" id="L69">        String hql = &quot;delete ShoppingCar where productId=?&quot;;</span>
+<span class="nc" id="L70">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L71">        query.setParameter(0, productId);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        return query.executeUpdate() &gt; 0;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

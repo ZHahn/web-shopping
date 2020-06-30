@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserDaoImplement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shopping$com_shopping_dao_in_shopping.exec</a> &gt; <a href="index.source.html" class="el_package">com.shopping.dao</a> &gt; <span class="el_source">UserDaoImplement.java</span></div><h1>UserDaoImplement.java</h1><pre class="source lang-java linenums">package com.shopping.dao;
+
+import com.shopping.entity.User;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.springframework.core.ConstantException;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
+import javax.validation.ConstraintViolationException;
+import java.util.List;
+
+@Repository
+<span class="fc" id="L14">public class UserDaoImplement implements UserDao {</span>
+
+    @Resource
+    private SessionFactory sessionFactory;
+
+    @Override
+    public User getUser(int id) {
+<span class="fc" id="L21">        String hql = &quot;from User where id=?&quot;;</span>
+<span class="fc" id="L22">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L23">        query.setParameter(0, id);</span>
+<span class="fc" id="L24">        return (User) query.uniqueResult();</span>
+    }
+
+    @Override
+    public User getUser(String nameOrEmail) {
+<span class="nc" id="L29">        String hql = &quot;from User where email=?&quot;;</span>
+<span class="nc" id="L30">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L31">        query.setParameter(0, nameOrEmail);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (query.uniqueResult() == null) {</span>
+<span class="nc" id="L33">            hql = &quot;from User where name=?&quot;;</span>
+<span class="nc" id="L34">            query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L35">            query.setParameter(0, nameOrEmail);</span>
+        }
+<span class="nc" id="L37">        return (User) query.uniqueResult();</span>
+    }
+
+    @Override
+    public void addUser(User user) {
+<span class="nc" id="L42">        sessionFactory.getCurrentSession().save(user);</span>
+<span class="nc" id="L43">    }</span>
+
+    @Override
+    public boolean deleteUser(int id) {
+<span class="fc" id="L47">        String hql = &quot;delete User where id=?&quot;;</span>
+<span class="fc" id="L48">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L49">        query.setParameter(0, id);</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+<span class="fc" id="L55">        String hql = &quot;update User set name = ?,email=?,nickName=? where id=?&quot;;</span>
+<span class="fc" id="L56">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L57">        query.setParameter(0, user.getName());</span>
+<span class="fc" id="L58">        query.setParameter(1, user.getEmail());</span>
+<span class="fc" id="L59">        query.setParameter(2, user.getNickName());</span>
+<span class="fc" id="L60">        query.setParameter(3, user.getId());</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public List&lt;User&gt; getAllUser() {
+<span class="nc" id="L66">        String hql = &quot;from User&quot;;</span>
+<span class="nc" id="L67">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L68">        return query.list();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

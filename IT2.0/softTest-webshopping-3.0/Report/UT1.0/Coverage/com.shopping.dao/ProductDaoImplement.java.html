@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductDaoImplement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shopping$com_shopping_dao_in_shopping.exec</a> &gt; <a href="index.source.html" class="el_package">com.shopping.dao</a> &gt; <span class="el_source">ProductDaoImplement.java</span></div><h1>ProductDaoImplement.java</h1><pre class="source lang-java linenums">package com.shopping.dao;
+
+import com.shopping.entity.Product;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@Repository
+<span class="fc" id="L12">public class ProductDaoImplement implements ProductDao {</span>
+    @Resource
+    private SessionFactory sessionFactory;
+
+    @Override
+    public Product getProduct(int id) {
+<span class="fc" id="L18">        String hql = &quot;from Product where id=?&quot;;</span>
+<span class="fc" id="L19">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L20">        query.setParameter(0, id);</span>
+<span class="fc" id="L21">        return (Product) query.uniqueResult();</span>
+    }
+
+    @Override
+    public Product getProduct(String name) {
+<span class="nc" id="L26">        String hql = &quot;from Product where name=?&quot;;</span>
+<span class="nc" id="L27">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L28">        query.setParameter(0, name);</span>
+<span class="nc" id="L29">        return (Product) query.uniqueResult();</span>
+    }
+
+    @Override
+    public void addProduct(Product product) {
+<span class="nc" id="L34">        sessionFactory.getCurrentSession().save(product);</span>
+<span class="nc" id="L35">    }</span>
+
+    @Override
+    public boolean deleteProduct(int id) {
+<span class="fc" id="L39">        String hql = &quot;delete Product where id=?&quot;;</span>
+<span class="fc" id="L40">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L41">        query.setParameter(0, id);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public boolean updateProduct(Product product) {
+<span class="fc" id="L47">        String hql = &quot;update Product set name=?,description=?,keyWord=?,price=?,counts=?,type=? where id=?&quot;;</span>
+<span class="fc" id="L48">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L49">        query.setParameter(0, product.getName());</span>
+<span class="fc" id="L50">        query.setParameter(1, product.getDescription());</span>
+<span class="fc" id="L51">        query.setParameter(2, product.getKeyWord());</span>
+<span class="fc" id="L52">        query.setParameter(3, product.getPrice());</span>
+<span class="fc" id="L53">        query.setParameter(4, product.getCounts());</span>
+<span class="fc" id="L54">        query.setParameter(5, product.getType());</span>
+<span class="fc" id="L55">        query.setParameter(6, product.getId());</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public List&lt;Product&gt; getProductsByKeyWord(String searchKeyWord) {
+<span class="fc" id="L61">        String queryKeyWord = &quot;%&quot;;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        for (int i = 0; i &lt; searchKeyWord.length(); i++) {</span>
+<span class="fc" id="L63">            queryKeyWord += String.valueOf(searchKeyWord.charAt(i)) + &quot;%&quot;;</span>
+        }
+//        System.out.println(&quot;我搜索了&quot; + queryKeyWord);
+<span class="fc" id="L66">        String hql = &quot;from Product where name like ? or key_word like ?&quot;;</span>
+<span class="fc" id="L67">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L68">        query.setParameter(0, queryKeyWord);</span>
+<span class="fc" id="L69">        query.setParameter(1, queryKeyWord);</span>
+<span class="fc" id="L70">        return query.list();</span>
+    }
+
+    @Override
+    public List&lt;Product&gt; getProductsByType(int type) {
+<span class="nc" id="L75">        String hql = &quot;from Product where type=?&quot;;</span>
+<span class="nc" id="L76">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L77">        query.setParameter(0, type);</span>
+<span class="nc" id="L78">        return query.list();</span>
+    }
+
+
+    @Override
+    public List&lt;Product&gt; getAllProduct() {
+<span class="nc" id="L84">        String hql = &quot;from Product&quot;;</span>
+<span class="nc" id="L85">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L86">        return query.list();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

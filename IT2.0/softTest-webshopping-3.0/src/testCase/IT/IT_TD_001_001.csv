@@ -1,0 +1,7 @@
+﻿userNameOrEmail,password,result
+test1,111111,FALSE
+test1,,FALSE
+test1,123456,TRUE
+,,FALSE
+,123456,FALSE
+Y,111111,FALSE

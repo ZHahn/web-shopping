@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShoppingRecordDaoImplement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shopping$com_shopping_dao_in_shopping.exec</a> &gt; <a href="index.source.html" class="el_package">com.shopping.dao</a> &gt; <span class="el_source">ShoppingRecordDaoImplement.java</span></div><h1>ShoppingRecordDaoImplement.java</h1><pre class="source lang-java linenums">package com.shopping.dao;
+
+import com.shopping.entity.ShoppingCar;
+import com.shopping.entity.ShoppingRecord;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@Repository
+<span class="fc" id="L13">public class ShoppingRecordDaoImplement implements ShoppingRecordDao {</span>
+    @Resource
+    private SessionFactory sessionFactory;
+
+    @Override
+    public ShoppingRecord getShoppingRecord(int userId, int productId, String time) {
+<span class="fc" id="L19">        String hql = &quot;from ShoppingRecord where userId=? and productId=? and time=?&quot;;</span>
+<span class="fc" id="L20">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L21">        query.setParameter(0, userId);</span>
+<span class="fc" id="L22">        query.setParameter(1, productId);</span>
+<span class="fc" id="L23">        query.setParameter(2, time);</span>
+<span class="fc" id="L24">        return (ShoppingRecord) query.uniqueResult();</span>
+    }
+
+    @Override
+    public void addShoppingRecord(ShoppingRecord shoppingRecord) {
+<span class="nc" id="L29">        sessionFactory.getCurrentSession().save(shoppingRecord);</span>
+<span class="nc" id="L30">    }</span>
+
+    @Override
+    public boolean deleteShoppingRecord(int userId, int productId) {
+<span class="fc" id="L34">        String hql = &quot;delete ShoppingRecord where userId=? and productId=?&quot;;</span>
+<span class="fc" id="L35">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L36">        query.setParameter(0, userId);</span>
+<span class="fc" id="L37">        query.setParameter(1, productId);</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public boolean updateShoppingRecord(ShoppingRecord shoppingRecord) {
+<span class="fc" id="L43">        String hql = &quot;update ShoppingReocrd set orderStatus=? where userId=? and productId=? and time=?&quot;;</span>
+<span class="fc" id="L44">        String sql = &quot;update shopping_record set order_status=&quot; + shoppingRecord.getOrderStatus() + &quot; where user_id=&quot; + shoppingRecord.getUserId() + &quot; and product_id=&quot; + shoppingRecord.getProductId() + &quot; and time='&quot; + shoppingRecord.getTime() + &quot;'&quot;;</span>
+//        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter(0,shoppingRecord.getOrderStatus());
+//        query.setParameter(1,shoppingRecord.getUserId());
+//        query.setParameter(2,shoppingRecord.getProductId());
+//        query.setParameter(3,shoppingRecord.getTime());
+<span class="fc" id="L50">        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public List&lt;ShoppingRecord&gt; getShoppingRecords(int userId) {
+<span class="nc" id="L56">        String hql = &quot;from ShoppingRecord where userId=?&quot;;</span>
+<span class="nc" id="L57">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L58">        query.setParameter(0, userId);</span>
+<span class="nc" id="L59">        return query.list();</span>
+    }
+
+    @Override
+    public List&lt;ShoppingRecord&gt; getAllShoppingRecords() {
+<span class="nc" id="L64">        String hql = &quot;from ShoppingRecord&quot;;</span>
+<span class="nc" id="L65">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L66">        return query.list();</span>
+    }
+
+    @Override
+    public List&lt;ShoppingRecord&gt; getShoppingRecordsByOrderStatus(int orderStatus) {
+<span class="fc" id="L71">        String hql = &quot;from ShoppingRecord where orderStatus=?&quot;;</span>
+<span class="fc" id="L72">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="fc" id="L73">        query.setParameter(0, orderStatus);</span>
+<span class="fc" id="L74">        return query.list();</span>
+    }
+
+    @Override
+    public boolean getUserProductRecord(int userId, int productId) {
+<span class="nc" id="L79">        String hql = &quot;from ShoppingRecord where userId=? and productId=?&quot;;</span>
+<span class="nc" id="L80">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L81">        query.setParameter(0, userId);</span>
+<span class="nc" id="L82">        query.setParameter(1, productId);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        return query.list().size() &gt; 0;</span>
+    }
+
+    @Override
+    public boolean deleteShoppingRecordByUser(int userId) {
+<span class="nc" id="L88">        String hql = &quot;delete ShoppingRecord where userId=?&quot;;</span>
+<span class="nc" id="L89">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L90">        query.setParameter(0, userId);</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        return query.executeUpdate() &gt; 0;</span>
+    }
+
+    @Override
+    public boolean deleteShoppingRecordByProductId(int productId) {
+<span class="nc" id="L96">        String hql = &quot;delete ShoppingRecord where productId=?&quot;;</span>
+<span class="nc" id="L97">        Query query = sessionFactory.getCurrentSession().createQuery(hql);</span>
+<span class="nc" id="L98">        query.setParameter(0, productId);</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        return query.executeUpdate() &gt; 0;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

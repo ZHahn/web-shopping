@@ -1,0 +1,143 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: EvaluationController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.shopping.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: EvaluationController (com.shopping.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EvaluationController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (22/ 22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.shopping.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSONArray;
+<i>4</i>&nbsp;import com.shopping.entity.Evaluation;
+<i>5</i>&nbsp;import com.shopping.service.EvaluationService;
+<i>6</i>&nbsp;import com.shopping.service.ShoppingRecordService;
+<i>7</i>&nbsp;import org.springframework.stereotype.Controller;
+<i>8</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>9</i>&nbsp;import org.springframework.web.bind.annotation.RequestMethod;
+<i>10</i>&nbsp;import org.springframework.web.bind.annotation.ResponseBody;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import javax.annotation.Resource;
+<i>13</i>&nbsp;import java.text.SimpleDateFormat;
+<i>14</i>&nbsp;import java.util.Date;
+<i>15</i>&nbsp;import java.util.HashMap;
+<i>16</i>&nbsp;import java.util.List;
+<i>17</i>&nbsp;import java.util.Map;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;@Controller
+<b class="fc"><i>20</i>&nbsp;public class EvaluationController {</b>
+<i>21</i>&nbsp;    @Resource
+<i>22</i>&nbsp;    private EvaluationService evaluationService;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Resource
+<i>25</i>&nbsp;    private ShoppingRecordService shoppingRecordService;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @RequestMapping(value = &quot;/addShoppingEvaluation&quot;, method = RequestMethod.POST)
+<i>28</i>&nbsp;    @ResponseBody
+<i>29</i>&nbsp;    public Map&lt;String, Object&gt; addShoppingEvaluation(int userId, int productId, String content) {
+<i>30</i>&nbsp;//        System.out.println(&quot;Œ“ÃÌº”¡À&quot; + userId + &quot; &quot; + productId);
+<b class="fc"><i>31</i>&nbsp;        String result = &quot;null&quot;;</b>
+<b class="fc"><i>32</i>&nbsp;        if (shoppingRecordService.getUserProductRecord(userId, productId)) {</b>
+<b class="fc"><i>33</i>&nbsp;            Evaluation evaluation = new Evaluation();</b>
+<b class="fc"><i>34</i>&nbsp;            evaluation.setUserId(userId);</b>
+<b class="fc"><i>35</i>&nbsp;            evaluation.setProductId(productId);</b>
+<b class="fc"><i>36</i>&nbsp;            Date date = new Date();</b>
+<b class="fc"><i>37</i>&nbsp;            SimpleDateFormat sf = new SimpleDateFormat(&quot;yyyy-MM-dd HH-mm-ss&quot;);</b>
+<b class="fc"><i>38</i>&nbsp;            evaluation.setTime(sf.format(date));</b>
+<b class="fc"><i>39</i>&nbsp;            evaluation.setContent(content);</b>
+<b class="fc"><i>40</i>&nbsp;            evaluationService.addEvaluation(evaluation);</b>
+<b class="fc"><i>41</i>&nbsp;            result = &quot;success&quot;;</b>
+<b class="fc"><i>42</i>&nbsp;        } else {</b>
+<b class="fc"><i>43</i>&nbsp;            result = &quot;noneRecord&quot;;</b>
+<i>44</i>&nbsp;        }
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;        Map&lt;String, Object&gt; resultMap = new HashMap&lt;String, Object&gt;();</b>
+<b class="fc"><i>47</i>&nbsp;        resultMap.put(&quot;result&quot;, result);</b>
+<b class="fc"><i>48</i>&nbsp;        return resultMap;</b>
+<i>49</i>&nbsp;    }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    @RequestMapping(value = &quot;/getShoppingEvaluations&quot;, method = RequestMethod.POST)
+<i>52</i>&nbsp;    @ResponseBody
+<i>53</i>&nbsp;    public Map&lt;String, Object&gt; getShoppingEvaluations(int productId) {
+<b class="fc"><i>54</i>&nbsp;        List&lt;Evaluation&gt; evaluationList = evaluationService.getProductEvaluation(productId);</b>
+<b class="fc"><i>55</i>&nbsp;        String evaluations = JSONArray.toJSONString(evaluationList);</b>
+<b class="fc"><i>56</i>&nbsp;        Map&lt;String, Object&gt; resultMap = new HashMap&lt;String, Object&gt;();</b>
+<b class="fc"><i>57</i>&nbsp;        resultMap.put(&quot;result&quot;, evaluations);</b>
+<b class="fc"><i>58</i>&nbsp;        return resultMap;</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-07-01 15:39</div>
+</div>
+</body>
+</html>
